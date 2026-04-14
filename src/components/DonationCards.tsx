@@ -31,6 +31,8 @@ export function DonationCards({ onDonate }: DonationCardsProps) {
                   src={campaign.image}
                   alt={campaign.name}
                   loading="lazy"
+                  decoding="async"
+                  sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
                   width={640}
                   height={512}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"

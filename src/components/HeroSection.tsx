@@ -16,6 +16,8 @@ export function HeroSection() {
             alt="Akshaya Tritiya seva campaign"
             width={1366}
             height={768}
+            fetchPriority="high"
+            decoding="sync"
             className="block h-auto w-full"
           />
         </picture>

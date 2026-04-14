@@ -1,4 +1,4 @@
-import mandirNirman from "@/assets/mandir-nirman.jpg";
+import mandirNirmanReal from "@/assets/mandir-nirman-real.jpg";
 
 interface TempleSectionProps {
   onDonate: () => void;
@@ -25,7 +25,7 @@ export function TempleSection({ onDonate }: TempleSectionProps) {
           </div>
           <div className="relative h-64 md:h-auto">
             <img
-              src={mandirNirman}
+              src={mandirNirmanReal}
               alt="Radha Krishna Temple Construction"
               loading="lazy"
               width={640}

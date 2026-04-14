@@ -1,6 +1,18 @@
 declare global {
+  interface RazorpaySuccessResponse {
+    razorpay_payment_id: string;
+  }
+
+  interface RazorpayInstance {
+    open: () => void;
+  }
+
+  interface RazorpayConstructor {
+    new (options: Record<string, unknown>): RazorpayInstance;
+  }
+
   interface Window {
-    Razorpay: any;
+    Razorpay?: RazorpayConstructor;
   }
 }
 
@@ -25,6 +37,7 @@ export interface DonationOptions {
   phone: string;
   sevaType: string;
   razorpayKeyId: string;
+  notes?: Record<string, string>;
   onSuccess: (paymentId: string) => void;
   onFailure: (error: string) => void;
 }
@@ -43,7 +56,7 @@ export async function openRazorpayCheckout(options: DonationOptions) {
     name: "ISKCON Gambheeram Visakhapatnam",
     description: `Akshaya Tritiya - ${options.sevaType}`,
     image: "",
-    handler: (response: any) => {
+    handler: (response: RazorpaySuccessResponse) => {
       options.onSuccess(response.razorpay_payment_id);
     },
     prefill: {
@@ -51,6 +64,7 @@ export async function openRazorpayCheckout(options: DonationOptions) {
       email: options.email,
       contact: options.phone,
     },
+    notes: options.notes,
     theme: {
       color: "#5C1A0B",
     },
@@ -61,6 +75,12 @@ export async function openRazorpayCheckout(options: DonationOptions) {
     },
   };
 
-  const rzp = new window.Razorpay(razorpayOptions);
+  const Razorpay = window.Razorpay;
+  if (!Razorpay) {
+    options.onFailure("Razorpay SDK is unavailable");
+    return;
+  }
+
+  const rzp = new Razorpay(razorpayOptions);
   rzp.open();
 }
