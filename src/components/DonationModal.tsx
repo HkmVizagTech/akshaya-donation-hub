@@ -187,7 +187,7 @@ export function DonationModal({
           <button
             onClick={handleDonate}
             disabled={isProcessing || !name || !phone || !finalAmount}
-            className="w-full rounded-lg bg-donate-btn py-3 text-lg font-bold text-donate-btn-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="gold-shine-button w-full py-3 text-lg font-bold"
           >
             {isProcessing
               ? "Processing..."

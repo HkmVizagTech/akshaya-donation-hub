@@ -82,7 +82,7 @@ function ThankYouPage() {
           </p>
           <Link
             to="/"
-            className="mt-6 inline-block rounded-lg bg-donate-btn px-8 py-3 font-semibold text-donate-btn-foreground transition-opacity hover:opacity-90"
+            className="gold-shine-button mt-6 inline-block px-8 py-3 font-semibold"
           >
             Back to Home
           </Link>

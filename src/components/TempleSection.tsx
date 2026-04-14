@@ -18,7 +18,7 @@ export function TempleSection({ onDonate }: TempleSectionProps) {
             </p>
             <button
               onClick={onDonate}
-              className="bg-donate-btn text-donate-btn-foreground px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity w-fit"
+              className="gold-shine-button w-fit px-8 py-3 font-semibold"
             >
               Donate Now
             </button>
