@@ -1,38 +1,43 @@
 import heroBanner from "@/assets/hero-banner.jpg";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onDonate: () => void;
+}
+
+export function HeroSection({ onDonate }: HeroSectionProps) {
   return (
     <section className="relative w-full">
-      <div className="relative min-h-[500px] md:min-h-[600px] overflow-hidden">
+      <div className="relative min-h-[500px] overflow-hidden md:min-h-[600px]">
         <img
           src={heroBanner}
           alt="Akshaya Tritiya 2026"
           width={1920}
           height={800}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-hero-bg/90 via-hero-bg/70 to-transparent" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-16 md:py-24 flex flex-col justify-center min-h-[500px] md:min-h-[600px]">
-          <h1 className="text-5xl md:text-7xl font-bold text-primary leading-tight">
-            अक्षय
+        <div className="relative z-10 mx-auto flex min-h-[500px] max-w-7xl flex-col justify-center px-4 py-24 md:min-h-[600px] md:py-32">
+          <h1 className="text-5xl font-bold leading-tight text-primary md:text-7xl">
+            Akshaya
             <br />
-            तृतीया
+            Tritiya
           </h1>
-          <p className="text-lg md:text-xl text-primary/80 mt-2 italic">पावन अवसर</p>
-          <p className="text-primary font-semibold mt-6 text-base md:text-lg max-w-lg">
-            गौ सेवा | अन्नदान सेवा | मंदिर निर्माण
+          <p className="mt-2 text-lg italic text-primary/80 md:text-xl">
+            A sacred day for seva and blessings
           </p>
-          <p className="text-foreground/80 mt-2 max-w-lg text-sm md:text-base">
-            दान कर पाएं संपन्नता, सुख-शांति व अक्षय पुण्य का वरदान।
-            <br />
-            पुण्य प्राप्ति का यह दुर्लभ अवसर न गंवाएं!
+          <p className="mt-6 max-w-lg text-base font-semibold text-primary md:text-lg">
+            Gau Seva | Annadan Seva | Mandir Nirman
           </p>
-          <a
-            href="#donate"
-            className="mt-8 inline-flex items-center justify-center bg-donate-btn text-donate-btn-foreground px-8 py-3 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity w-fit border-2 border-hero-gold"
+          <p className="mt-2 max-w-lg text-sm text-foreground/80 md:text-base">
+            Offer your contribution on this auspicious occasion and support
+            temple service, prasadam distribution, and compassionate seva.
+          </p>
+          <button
+            onClick={onDonate}
+            className="mt-8 inline-flex w-fit items-center justify-center rounded-lg border-2 border-hero-gold bg-donate-btn px-8 py-3 text-lg font-semibold text-donate-btn-foreground transition-opacity hover:opacity-90"
           >
-            अभी दान करें
-          </a>
+            Donate Now
+          </button>
         </div>
       </div>
     </section>

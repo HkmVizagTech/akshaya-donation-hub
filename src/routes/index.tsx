@@ -4,8 +4,6 @@ import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { QuoteSection } from "@/components/QuoteSection";
 import { VideoSection } from "@/components/VideoSection";
-import { DonationCards } from "@/components/DonationCards";
-import { DonorPrivileges } from "@/components/DonorPrivileges";
 import { SignificanceSection } from "@/components/SignificanceSection";
 import { ContributorsSection } from "@/components/ContributorsSection";
 import { TempleSection } from "@/components/TempleSection";
@@ -16,9 +14,9 @@ import { DonationModal } from "@/components/DonationModal";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Akshaya Tritiya 2026 Donation – Offer Seva and Daan | Gupt Vrindavan Dham" },
+      { title: "Akshaya Tritiya 2026 Donation - Offer Seva and Daan | Gupt Vrindavan Dham" },
       { name: "description", content: "Donate on Akshaya Tritiya 2026 for Gau Seva, Annadaan Seva & Mandir Nirman at Gupt Vrindavan Dham. Earn imperishable Akshaya Punya." },
-      { property: "og:title", content: "Akshaya Tritiya 2026 Donation – Gupt Vrindavan Dham" },
+      { property: "og:title", content: "Akshaya Tritiya 2026 Donation - Gupt Vrindavan Dham" },
       { property: "og:description", content: "Donate for Gau Seva, Annadaan & Temple Construction. Earn Akshaya Punya." },
     ],
   }),
@@ -37,11 +35,9 @@ function Index() {
   return (
     <div className="min-h-screen">
       <Header onDonate={() => openDonation()} />
-      <HeroSection />
+      <HeroSection onDonate={() => openDonation()} />
       <QuoteSection />
       <VideoSection />
-      <DonationCards onDonate={(seva) => openDonation(seva)} />
-      <DonorPrivileges onDonate={() => openDonation()} />
       <SignificanceSection />
       <ContributorsSection />
       <TempleSection onDonate={() => openDonation("Mandir Nirman Seva")} />
