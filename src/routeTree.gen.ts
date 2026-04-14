@@ -10,6 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as ContactUsRouteImport } from './routes/contact-us'
+import { Route as CancellationRefundsPolicyRouteImport } from './routes/cancellation-refunds-policy'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ThankYouRoute = ThankYouRouteImport.update({
@@ -17,6 +22,32 @@ const ThankYouRoute = ThankYouRouteImport.update({
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactUsRoute = ContactUsRouteImport.update({
+  id: '/contact-us',
+  path: '/contact-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CancellationRefundsPolicyRoute =
+  CancellationRefundsPolicyRouteImport.update({
+    id: '/cancellation-refunds-policy',
+    path: '/cancellation-refunds-policy',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -25,27 +56,69 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cancellation-refunds-policy': typeof CancellationRefundsPolicyRoute
+  '/contact-us': typeof ContactUsRoute
+  '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/thank-you': typeof ThankYouRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cancellation-refunds-policy': typeof CancellationRefundsPolicyRoute
+  '/contact-us': typeof ContactUsRoute
+  '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/thank-you': typeof ThankYouRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cancellation-refunds-policy': typeof CancellationRefundsPolicyRoute
+  '/contact-us': typeof ContactUsRoute
+  '/pricing': typeof PricingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/thank-you': typeof ThankYouRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/thank-you'
+  fullPaths:
+    | '/'
+    | '/cancellation-refunds-policy'
+    | '/contact-us'
+    | '/pricing'
+    | '/privacy-policy'
+    | '/terms-and-conditions'
+    | '/thank-you'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/thank-you'
-  id: '__root__' | '/' | '/thank-you'
+  to:
+    | '/'
+    | '/cancellation-refunds-policy'
+    | '/contact-us'
+    | '/pricing'
+    | '/privacy-policy'
+    | '/terms-and-conditions'
+    | '/thank-you'
+  id:
+    | '__root__'
+    | '/'
+    | '/cancellation-refunds-policy'
+    | '/contact-us'
+    | '/pricing'
+    | '/privacy-policy'
+    | '/terms-and-conditions'
+    | '/thank-you'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CancellationRefundsPolicyRoute: typeof CancellationRefundsPolicyRoute
+  ContactUsRoute: typeof ContactUsRoute
+  PricingRoute: typeof PricingRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   ThankYouRoute: typeof ThankYouRoute
 }
 
@@ -56,6 +129,41 @@ declare module '@tanstack/react-router' {
       path: '/thank-you'
       fullPath: '/thank-you'
       preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact-us': {
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof ContactUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cancellation-refunds-policy': {
+      id: '/cancellation-refunds-policy'
+      path: '/cancellation-refunds-policy'
+      fullPath: '/cancellation-refunds-policy'
+      preLoaderRoute: typeof CancellationRefundsPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +178,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CancellationRefundsPolicyRoute: CancellationRefundsPolicyRoute,
+  ContactUsRoute: ContactUsRoute,
+  PricingRoute: PricingRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
   ThankYouRoute: ThankYouRoute,
 }
 export const routeTree = rootRouteImport

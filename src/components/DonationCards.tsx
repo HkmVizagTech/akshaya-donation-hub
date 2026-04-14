@@ -1,17 +1,4 @@
-import akshayaSeva from "@/assets/akshaya-seva.jpg";
-import gauSeva from "@/assets/gau-seva.jpg";
-import mandirNirman from "@/assets/mandir-nirman.jpg";
-import chandanSeva from "@/assets/chandan-seva.jpg";
-import annaSeva from "@/assets/anna-seva.jpg";
-
-const categories = [
-  { name: "Akshaya Tritiya Seva", image: akshayaSeva },
-  { name: "Gau Seva", image: gauSeva },
-  { name: "Mandir Nirman Seva", image: mandirNirman },
-  { name: "Chandan Alankar Seva", image: chandanSeva },
-  { name: "Khichdi Vitaran Seva", image: annaSeva },
-  { name: "Annadana Seva", image: annaSeva },
-];
+import { donationCampaigns } from "@/lib/donations";
 
 interface DonationCardsProps {
   onDonate: (sevaType: string) => void;
@@ -19,37 +6,60 @@ interface DonationCardsProps {
 
 export function DonationCards({ onDonate }: DonationCardsProps) {
   return (
-    <section id="donate" className="py-16 px-4 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-primary mb-8 uppercase tracking-wide">
-          Akshaya Tritiya Daan
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((cat) => (
-            <div
-              key={cat.name}
-              className="rounded-xl overflow-hidden shadow-md bg-primary group relative"
+    <section
+      id="donate"
+      className="bg-[linear-gradient(180deg,_#fff8ea_0%,_#f3e1b4_100%)] px-4 py-16"
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-primary/70">
+            Offer Your Seva
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">
+            Choose a seva and donate instantly
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {donationCampaigns.map((campaign) => (
+            <article
+              key={campaign.name}
+              className="group overflow-hidden rounded-[1.75rem] border border-primary/10 bg-card shadow-[0_18px_45px_rgba(90,44,16,0.1)] transition-transform duration-300 hover:-translate-y-1"
             >
-              <div className="relative h-40 overflow-hidden">
+              <div className="relative h-52 overflow-hidden">
                 <img
-                  src={cat.image}
-                  alt={cat.name}
+                  src={campaign.image}
+                  alt={campaign.name}
                   loading="lazy"
                   width={640}
                   height={512}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/10 to-transparent" />
+                <p className="absolute left-4 bottom-4 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                  {campaign.badge ?? "Seva"}
+                </p>
               </div>
-              <div className="p-4 flex items-center justify-between">
-                <h3 className="text-primary-foreground font-bold text-lg">{cat.name}</h3>
+              <div className="space-y-4 p-5">
+                <div>
+                  <h3 className="text-2xl font-bold text-primary">
+                    {campaign.name}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+                    {campaign.blurb}
+                  </p>
+                  <p className="mt-3 text-sm font-semibold text-primary/80">
+                    Starting from ₹{campaign.defaultAmount.toLocaleString()}
+                  </p>
+                </div>
                 <button
-                  onClick={() => onDonate(cat.name)}
-                  className="bg-background text-primary px-5 py-2 rounded-lg font-semibold text-sm hover:bg-accent transition-colors"
+                  onClick={() => onDonate(campaign.name)}
+                  className="gold-shine-button w-full px-5 py-3 text-sm font-semibold"
                 >
-                  Donate
+                  Donate for {campaign.name}
                 </button>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

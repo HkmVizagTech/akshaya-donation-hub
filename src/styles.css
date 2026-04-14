@@ -121,7 +121,64 @@
     font-family: var(--font-body);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+  }
+}
+
+@keyframes sticky-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@layer components {
+  .gold-shine-button {
+    position: relative;
+    overflow: hidden;
+    border-radius: 9999px;
+    border: 1px solid rgba(146, 80, 18, 0.18);
+    background:
+      linear-gradient(180deg, rgba(255, 245, 173, 0.95) 0%, rgba(242, 191, 57, 0.98) 42%, rgba(206, 139, 20, 1) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      inset 0 -2px 0 rgba(123, 66, 12, 0.18),
+      0 10px 20px rgba(123, 66, 12, 0.18);
+    color: #5e250a;
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  }
+
+  .gold-shine-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.6) 45%, transparent 70%);
+    transform: translateX(-130%);
+    transition: transform 480ms ease;
+  }
+
+  .gold-shine-button:hover {
+    transform: translateY(-1px);
+    filter: saturate(1.05);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      inset 0 -2px 0 rgba(123, 66, 12, 0.2),
+      0 14px 24px rgba(123, 66, 12, 0.24);
+  }
+
+  .gold-shine-button:hover::before {
+    transform: translateX(130%);
+  }
+
+  .sticky-donate-shell {
+    animation: sticky-float 4s ease-in-out infinite;
   }
 }

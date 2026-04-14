@@ -40,7 +40,7 @@ export async function openRazorpayCheckout(options: DonationOptions) {
     key: options.razorpayKeyId,
     amount: options.amount * 100, // Razorpay expects paise
     currency: "INR",
-    name: "Gupt Vrindavan Dham",
+    name: "ISKCON Gambheeram Visakhapatnam",
     description: `Akshaya Tritiya - ${options.sevaType}`,
     image: "",
     handler: (response: any) => {

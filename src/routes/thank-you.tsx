@@ -14,8 +14,12 @@ export const Route = createFileRoute("/thank-you")({
   }),
   head: () => ({
     meta: [
-      { title: "Thank You — Gupt Vrindavan Dham" },
-      { name: "description", content: "Thank you for your generous donation to Gupt Vrindavan Dham." },
+      { title: "Thank You - ISKCON Gambheeram Visakhapatnam" },
+      {
+        name: "description",
+        content:
+          "Thank you for your generous donation to ISKCON Gambheeram Visakhapatnam.",
+      },
     ],
   }),
   component: ThankYouPage,
@@ -25,45 +29,60 @@ function ThankYouPage() {
   const { paymentId, amount, seva } = Route.useSearch();
 
   return (
-    <div className="min-h-screen bg-hero-bg flex items-center justify-center px-4 py-16">
-      <div className="max-w-lg w-full bg-card rounded-2xl shadow-2xl overflow-hidden text-center">
+    <div className="flex min-h-screen items-center justify-center bg-hero-bg px-4 py-16">
+      <div className="w-full max-w-lg overflow-hidden rounded-2xl bg-card text-center shadow-2xl">
         <div className="bg-primary p-8">
-          <div className="w-20 h-20 mx-auto bg-hero-gold rounded-full flex items-center justify-center mb-4">
-            <svg className="w-10 h-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-hero-gold">
+            <svg
+              className="h-10 w-10 text-primary"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={3}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-primary-foreground">धन्यवाद!</h1>
-          <p className="text-primary-foreground/80 mt-2">Thank You for Your Generous Donation</p>
+          <h1 className="text-3xl font-bold text-primary-foreground">
+            Thank You
+          </h1>
+          <p className="mt-2 text-primary-foreground/80">
+            Your donation has been received for ISKCON Gambheeram Visakhapatnam
+          </p>
         </div>
-        <div className="p-8 space-y-4">
+        <div className="space-y-4 p-8">
           {seva && (
-            <div className="bg-muted rounded-lg p-4">
+            <div className="rounded-lg bg-muted p-4">
               <p className="text-sm text-muted-foreground">Seva Type</p>
-              <p className="font-bold text-foreground text-lg">{seva}</p>
+              <p className="text-lg font-bold text-foreground">{seva}</p>
             </div>
           )}
           {amount && (
-            <div className="bg-muted rounded-lg p-4">
+            <div className="rounded-lg bg-muted p-4">
               <p className="text-sm text-muted-foreground">Amount Donated</p>
-              <p className="font-bold text-foreground text-2xl">₹{parseInt(amount).toLocaleString()}</p>
+              <p className="text-2xl font-bold text-foreground">
+                INR {parseInt(amount).toLocaleString()}
+              </p>
             </div>
           )}
           {paymentId && (
-            <div className="bg-muted rounded-lg p-4">
+            <div className="rounded-lg bg-muted p-4">
               <p className="text-sm text-muted-foreground">Payment ID</p>
-              <p className="font-mono text-foreground text-sm">{paymentId}</p>
+              <p className="font-mono text-sm text-foreground">{paymentId}</p>
             </div>
           )}
-          <p className="text-foreground/80 leading-relaxed mt-6">
-            May the blessings of Lord Krishna bring prosperity, happiness, and peace to you and your family. Your contribution will help in temple construction, Gau Seva, and Annadaan.
-          </p>
-          <p className="text-primary font-semibold italic">
-            "अक्षय पुण्य की प्राप्ति हो!"
+          <p className="mt-6 leading-relaxed text-foreground/80">
+            May Sri Sri Radha Gopinath and Srila Prabhupada bless you and your
+            family. Your contribution supports seva activities in ISKCON
+            Gambheeram Visakhapatnam.
           </p>
           <Link
             to="/"
-            className="inline-block mt-6 bg-donate-btn text-donate-btn-foreground px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+            className="mt-6 inline-block rounded-lg bg-donate-btn px-8 py-3 font-semibold text-donate-btn-foreground transition-opacity hover:opacity-90"
           >
             Back to Home
           </Link>

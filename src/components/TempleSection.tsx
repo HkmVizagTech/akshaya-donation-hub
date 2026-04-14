@@ -11,10 +11,10 @@ export function TempleSection({ onDonate }: TempleSectionProps) {
         <div className="bg-card rounded-2xl overflow-hidden shadow-xl grid md:grid-cols-2 gap-0">
           <div className="p-8 md:p-12 flex flex-col justify-center">
             <h2 className="text-xl md:text-2xl font-bold text-primary mb-4">
-              Donate for Construction of Radha Krishna Temple
+              Support Temple Seva at ISKCON Gambheeram
             </h2>
             <p className="text-muted-foreground mb-6">
-              Receive Maha Prasadam at your home.
+              Help strengthen worship services, festival offerings, and temple development in Visakhapatnam.
             </p>
             <button
               onClick={onDonate}
