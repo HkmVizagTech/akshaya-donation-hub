@@ -32,6 +32,7 @@ export function loadRazorpayScript(): Promise<boolean> {
 
 export interface DonationOptions {
   amount: number; // in INR
+  orderId?: string;
   name: string;
   email: string;
   phone: string;
@@ -51,6 +52,7 @@ export async function openRazorpayCheckout(options: DonationOptions) {
 
   const razorpayOptions = {
     key: options.razorpayKeyId,
+    ...(options.orderId ? { order_id: options.orderId } : {}),
     amount: options.amount * 100, // Razorpay expects paise
     currency: "INR",
     name: "ISKCON Gambheeram Visakhapatnam",

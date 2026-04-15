@@ -51,7 +51,9 @@ function ThankYouPage() {
             Thank You
           </h1>
           <p className="mt-2 text-primary-foreground/80">
-            Your donation has been received for ISKCON Gambheeram Visakhapatnam
+            {seva
+              ? `Thank you for the ${seva} dana.`
+              : "Your donation has been received for ISKCON Gambheeram Visakhapatnam."}
           </p>
         </div>
         <div className="space-y-4 p-8">

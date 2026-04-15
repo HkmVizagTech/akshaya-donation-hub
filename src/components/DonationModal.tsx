@@ -17,8 +17,20 @@ interface AddressFields {
   pincode: string;
 }
 
-const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID ?? "";
+const BACKEND_BASE_URL = (
+  import.meta.env.VITE_BACKEND_API_URL ??
+  "https://akshaya-tritiya-267687547554.europe-west1.run.app"
+).replace(
+  /\/$/,
+  "",
+);
 const PAN_REGEX = /^[A-Z]{5}[0-9]{4}[A-Z]$/;
+
+type CreateOrderResponse = {
+  orderId: string;
+  key: string;
+  donationId: string;
+};
 
 function createEmptyAddress(): AddressFields {
   return {
@@ -205,9 +217,9 @@ export function DonationModal({
       return;
     }
 
-    if (!RAZORPAY_KEY_ID) {
+    if (!BACKEND_BASE_URL) {
       setErrorMessage(
-        "Payment setup is incomplete. Add VITE_RAZORPAY_KEY_ID before going live.",
+        "Payment setup is incomplete. Add VITE_BACKEND_API_URL before going live.",
       );
       return;
     }
@@ -215,24 +227,76 @@ export function DonationModal({
     setErrorMessage("");
     setIsProcessing(true);
 
+    const taxAddressText = claim80G ? formatAddress(taxAddress) : "";
+    const prasadamAddressText =
+      wantsPrasadam && claim80G && prasadamAddressMode === "same"
+        ? formatAddress(taxAddress)
+        : wantsPrasadam
+          ? formatAddress(prasadamAddress)
+          : "";
+
+    let createOrderResponse: CreateOrderResponse;
+    try {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/payment/create-order`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          mobile: phone.trim(),
+          amount: finalAmount,
+          Akshaya_tritiya: true,
+          type: campaign.name,
+          // Backend currently keeps dob in the schema, so we send a stable date string.
+          dob: new Date().toISOString().slice(0, 10),
+          certificate: claim80G,
+          panNumber: claim80G ? pan.trim().toUpperCase() : "",
+          address: taxAddressText,
+          city: claim80G ? taxAddress.city.trim() : "",
+          state: claim80G ? taxAddress.state.trim() : "",
+          pincode: claim80G ? taxAddress.pincode.trim() : "",
+          mahaprasadam: wantsPrasadam,
+          prasadamAddressOption: wantsPrasadam ? prasadamAddressMode : "same",
+          prasadamAddress: prasadamAddressText,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = (await response.json().catch(() => null)) as
+          | { message?: string }
+          | null;
+        throw new Error(errorData?.message || "Failed to create payment order.");
+      }
+
+      createOrderResponse = (await response.json()) as CreateOrderResponse;
+    } catch (error) {
+      setIsProcessing(false);
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Unable to create payment order. Please try again.",
+      );
+      return;
+    }
+
     await openRazorpayCheckout({
       amount: finalAmount,
+      orderId: createOrderResponse.orderId,
       name: name.trim(),
       email: email.trim(),
       phone: phone.trim(),
       sevaType: campaign.name,
-      razorpayKeyId: RAZORPAY_KEY_ID,
+      razorpayKeyId: createOrderResponse.key,
       notes: {
+        donationId: createOrderResponse.donationId,
+        campaignType: campaign.name,
         claim80G: claim80G ? "yes" : "no",
         pan: claim80G ? pan.trim().toUpperCase() : "",
-        taxAddress: claim80G ? formatAddress(taxAddress) : "",
+        taxAddress: taxAddressText,
         wantsPrasadam: wantsPrasadam ? "yes" : "no",
-        prasadamAddress:
-          wantsPrasadam && claim80G && prasadamAddressMode === "same"
-            ? formatAddress(taxAddress)
-            : wantsPrasadam
-              ? formatAddress(prasadamAddress)
-              : "",
+        prasadamAddress: prasadamAddressText,
       },
       onSuccess: (paymentId) => {
         setIsProcessing(false);
