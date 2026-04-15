@@ -19,7 +19,7 @@ interface AddressFields {
 
 const BACKEND_BASE_URL = (
   import.meta.env.VITE_BACKEND_API_URL ??
-  "https://akshaya-tritiya-267687547554.europe-west1.run.app"
+  "https://akshaya-tritiya-485261796998.europe-west1.run.app"
 ).replace(
   /\/$/,
   "",
@@ -166,6 +166,11 @@ export function DonationModal({
   if (!isOpen) return null;
 
   const finalAmount = customAmount ? parseInt(customAmount, 10) : amount;
+  const visiblePresetAmounts = campaign.presetAmounts.filter(
+    (preset) => preset >= amount,
+  );
+  const displayPresetAmounts =
+    visiblePresetAmounts.length > 0 ? visiblePresetAmounts : campaign.presetAmounts;
   const eligibleFor80G = finalAmount >= 1000;
   const eligibleForPrasadam = finalAmount >= 1000;
   const shouldCollectPrasadamAddress =
@@ -246,6 +251,7 @@ export function DonationModal({
           name: name.trim(),
           email: email.trim(),
           mobile: phone.trim(),
+          sevaName: campaign.name,
           amount: finalAmount,
           Akshaya_tritiya: true,
           type: campaign.name,
@@ -271,6 +277,11 @@ export function DonationModal({
       }
 
       createOrderResponse = (await response.json()) as CreateOrderResponse;
+      if (!createOrderResponse.key) {
+        throw new Error(
+          "Payment setup is incomplete. Ask admin to configure RAZORPAY_KEY_ID in backend.",
+        );
+      }
     } catch (error) {
       setIsProcessing(false);
       setErrorMessage(
@@ -341,7 +352,7 @@ export function DonationModal({
               Select Amount (Rs)
             </label>
             <div className="grid grid-cols-3 gap-2">
-              {campaign.presetAmounts.map((preset) => (
+              {displayPresetAmounts.map((preset) => (
                 <button
                   key={preset}
                   onClick={() => {
